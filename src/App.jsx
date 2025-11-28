@@ -1,6 +1,8 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
-import Pizza from "./Pizza";
+// import Pizza from "./Pizza";
+import Order from "./Order";
+import PizzaoftheDay from "./PizzaoftheDay";
 
 const App = () => {
   // const app -> arrow function yang akan menghasilkan element React.
@@ -24,7 +26,7 @@ const App = () => {
     <div>
       <h1>Pizza terbaik se-indonesia!</h1>
       {/* single closing tag karena tidak ada children yang di passing. */}
-      <Pizza
+      {/* <Pizza
         name="Pepperoni Pizza"
         description="Pepperoni dan Keju"
         image={"/public/pizzas/pepperoni.webp"}
@@ -33,7 +35,9 @@ const App = () => {
         name="Meatlovers"
         description="Daging sapi, ayam, babi semuanya"
         image={"/public/pizzas/big_meat.webp"}
-      />
+      /> */}
+      <Order />
+      <PizzaoftheDay />
     </div>
   );
 };
