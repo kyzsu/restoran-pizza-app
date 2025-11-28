@@ -1,7 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useDebugValue } from "react";
 
+// custom hook krn pake lebih dari satu hooks basic yang menjadi suatu custom hook.
 export const usePizzaoftheDay = () => {
   const [pizzaoftheDay, setPizzaoftheDay] = useState(null);
+
+  // react dev tools --> install via chrome extension.
+  useDebugValue(pizzaoftheDay ? `${pizzaoftheDay.name}` : "loading...");
 
   useEffect(() => {
     async function fetchPizzaoftheDay() {

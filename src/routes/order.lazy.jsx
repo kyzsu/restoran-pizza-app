@@ -1,29 +1,24 @@
-import { useState, useEffect, useContext } from "react";
-import Pizza from "./Pizza";
-import Cart from "./Cart";
-import { CartContext } from "./contexts";
+import { createLazyFileRoute } from "@tanstack/react-router";
 
-// fungsi untuk format kurs.
+import { CartContext } from "../contexts";
+import Cart from "../Cart";
+import Pizza from "../Pizza";
+import { useContext, useEffect, useState } from "react";
+
+export const Route = createLazyFileRoute("/order")({
+  component: Order,
+});
+
 const kurs = new Intl.NumberFormat("en-US", {
   style: "currency",
   currency: "USD",
 });
 
-export default function Order() {
-  // useState mengembalikan dua nilai dalam array, [elemen pertama = valuenya, elemen kedua = fungsi untuk mengganti value]
-
-  //   untuk menyimpan jenis-jenis pizza yang ada yang diambil dari server
+function Order() {
   const [pizzaTypes, setPizzaTypes] = useState([]);
-  //   untuk menyimpan pizza yang dipilih
   const [pizzaType, setPizzaType] = useState("pepperoni");
-  // simpan ukuran pizza
   const [pizzaSize, setPizzaSize] = useState("M");
-  // state untuk loading
   const [loading, setLoading] = useState(true);
-  // simpan keranjang, sifatnya local scope (filenya)
-  // const [cart, setCart] = useState([]);
-
-  // global cart
   const [cart, setCart] = useContext(CartContext);
 
   let price, selectedPizza;
@@ -34,27 +29,14 @@ export default function Order() {
     );
   }
 
-  // dua argumen => 1. callback fn, 2. dependencies.
-  // jika array dari depedencies kosong, maka callback hanya akan dijalankan sekali. Setelah pagenya di-render.
-  // jika array ada isi, maka dia akan dijalankan kalo si nilai dari dependencies-nya berubah.
-  // infinite loop kalo tidak ada dependency.
   useEffect(() => {
     fetchPizzaTypes();
   }, []);
 
-  // single threading, line satu per satu, async await => multi threading.
-  // dia bisa menjalankan dua atau lebih task di waktu yang bersamaan.
-  // async await ini dipake, karena
   async function fetchPizzaTypes() {
-    // simulasi real-world yang ada delay, delay 3000ms
     await new Promise((resolve) => setTimeout(resolve, 150));
 
-    // JS Promise => saat kita call API, kita beri Timeout (async)
-    // Promise punya 3 state: Pending (default), Fulfilled, Rejected.
-
-    // await karena menunggu hasil/response dari server
     const res = await fetch("/api/pizzas");
-    // await karena dia bergantung pada variable "res".
     const json = await res.json();
 
     setPizzaTypes(json);
@@ -82,9 +64,7 @@ export default function Order() {
       <h2>create order</h2>
       <form
         onSubmit={(e) => {
-          // mencegah default method dari sebuah form, yaitu menghindari pelemparan data ke url as query.
           e.preventDefault();
-          // spread operator supaya bisa menyimpan pizza yang sudah ditambahkan sebelumnya
           setCart([...cart, { pizza: selectedPizza, size: pizzaSize, price }]);
         }}
       >
@@ -96,9 +76,6 @@ export default function Order() {
               value={pizzaType}
               onChange={(e) => setPizzaType(e.target.value)}
             >
-              {/* <option value="Pepperoni">Pepperoni Pizza</option>
-              <option value="Hawaiian">Hawaiian Pizza</option>
-              <option value="Meat_Lovers">Meat Lovers Pizza</option> */}
               {pizzaTypes.map((pizza) => (
                 <option key={pizzaType.id} value={pizza.id}>
                   {pizza.name}
