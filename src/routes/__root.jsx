@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { createRootRoute, Outlet } from "@tanstack/react-router";
+import { createRootRoute, Link, Outlet } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/router-devtools";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
@@ -16,7 +16,9 @@ export const Route = createRootRoute({
       <>
         <CartContext.Provider value={cartHook}>
           <div>
-            <Header />
+            <Link to="/">
+              <Header />
+            </Link>
             {/* shapeshifter -> outlet dia bisa berubah bentuk / "portal". Kalo kita mengakses www.localhost:3000 ==> App.jsx, localhost:3000/order => outlet ini akan berubah jadi Order.jsx, /profile maka outlet akan menampilkan component profile.  */}
             <Outlet />
             <PizzaoftheDay />

@@ -12,6 +12,7 @@ export const Route = createLazyFileRoute("/order")({
 });
 
 function Order() {
+  // controlled forms -> dikontrol oleh hooks
   const [pizzaTypes, setPizzaTypes] = useState([]);
   const [pizzaType, setPizzaType] = useState("pepperoni");
   const [pizzaSize, setPizzaSize] = useState("M");
