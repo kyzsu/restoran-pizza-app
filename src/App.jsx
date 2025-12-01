@@ -1,10 +1,7 @@
-import React, { StrictMode, useState } from "react";
+import React, { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-// import Pizza from "./Pizza";
-import Order from "./Order";
-import PizzaoftheDay from "./PizzaoftheDay";
-import Header from "./Header";
-import { CartContext } from "./contexts";
+import { createRouter, RouterProvider } from "@tanstack/react-router";
+import { routeTree } from "./routeTree.gen";
 
 const App = () => {
   // const app -> arrow function yang akan menghasilkan element React.
@@ -24,31 +21,12 @@ const App = () => {
   // }),
   // ]);
 
-  // tempat simpannya cart.
-  const cartHook = useState([]);
+  const router = createRouter({ routeTree });
 
   return (
     // StrictMode untuk menjalankan codingan dua kali, supaya mempermudah proses debugging. Kalau gak pake strictMode, useDebugValuenya bakal tampil as error di devTools.
     <StrictMode>
-      <CartContext.Provider value={cartHook}>
-        <div>
-          {/* <h1>Pizza terbaik se-indonesia!</h1> */}
-          <Header />
-          {/* single closing tag karena tidak ada children yang di passing. */}
-          {/* <Pizza
-        name="Pepperoni Pizza"
-        description="Pepperoni dan Keju"
-        image={"/public/pizzas/pepperoni.webp"}
-        />
-        <Pizza
-        name="Meatlovers"
-        description="Daging sapi, ayam, babi semuanya"
-        image={"/public/pizzas/big_meat.webp"}
-        /> */}
-          <Order />
-          <PizzaoftheDay />
-        </div>
-      </CartContext.Provider>
+      <RouterProvider router={router} />
     </StrictMode>
   );
 };

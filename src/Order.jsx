@@ -2,12 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import Pizza from "./Pizza";
 import Cart from "./Cart";
 import { CartContext } from "./contexts";
-
-// fungsi untuk format kurs.
-const kurs = new Intl.NumberFormat("en-US", {
-  style: "currency",
-  currency: "USD",
-});
+import kurs from "./utils/kurs";
 
 export default function Order() {
   // useState mengembalikan dua nilai dalam array, [elemen pertama = valuenya, elemen kedua = fungsi untuk mengganti value]

@@ -1,7 +1,4 @@
-const kurs = new Intl.NumberFormat("en-US", {
-  style: "currency",
-  currency: "USD",
-});
+import kurs from "./utils/kurs";
 
 export default function Cart({ cart, checkout }) {
   let total = 0;
