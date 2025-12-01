@@ -2,6 +2,7 @@ import React, { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { createRouter, RouterProvider } from "@tanstack/react-router";
 import { routeTree } from "./routeTree.gen";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const App = () => {
   // const app -> arrow function yang akan menghasilkan element React.
@@ -22,11 +23,16 @@ const App = () => {
   // ]);
 
   const router = createRouter({ routeTree });
+  // membuat instance dari QueryClient yang di-assign ke dalam variable queryClient.
+  const queryClient = new QueryClient();
 
   return (
     // StrictMode untuk menjalankan codingan dua kali, supaya mempermudah proses debugging. Kalau gak pake strictMode, useDebugValuenya bakal tampil as error di devTools.
     <StrictMode>
-      <RouterProvider router={router} />
+      {/* alasan queryClientProvider membungkus routerprovider supaya semua route yang kita buat dapat menggunakan React Query untuk fetching data. */}
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>
     </StrictMode>
   );
 };

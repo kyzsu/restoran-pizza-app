@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { createRootRoute, Outlet } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/router-devtools";
-import PizzaoftheDay from "../PizzaoftheDay";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+
 import Header from "../Header";
 import { CartContext } from "../contexts";
+import PizzaoftheDay from "../PizzaoftheDay";
 
 // rootRoute => index dari website kita -> www.pizzahut.com
 export const Route = createRootRoute({
@@ -21,6 +23,7 @@ export const Route = createRootRoute({
           </div>
         </CartContext.Provider>
         <TanStackRouterDevtools />
+        <ReactQueryDevtools />
       </>
     );
   },
